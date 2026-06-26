@@ -1,40 +1,48 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
-import "./globals.css";
-import { SITE_DESCRIPTION, SITE_NAME } from "@/shared/constants/seo.constants";
-import { cn } from "@/lib/utils";
+import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+import { ToggleTheme } from '@/shared/components/ui';
+import { SITE_DESCRIPTION, SITE_NAME } from '@/shared/constants/seo.constants';
+import { MainProvider } from '@/shared/providers';
+
+import './globals.css';
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+   variable: '--font-geist-sans',
+   subsets: ['latin'],
 });
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+   variable: '--font-geist-mono',
+   subsets: ['latin'],
+   preload: false,
 });
 
 export const metadata: Metadata = {
-  title: {
-    absolute: SITE_NAME,
-    template: `%s | ${SITE_NAME}`,
-  },
-  description: SITE_DESCRIPTION,
+   title: {
+      absolute: SITE_NAME,
+      template: `%s | ${SITE_NAME}`,
+   },
+   description: SITE_DESCRIPTION,
 };
 
 export default function RootLayout({
-  children,
+   children,
 }: Readonly<{
-  children: React.ReactNode;
+   children: React.ReactNode;
 }>) {
-  return (
-    <html
-      lang="en"
-      className={cn("h-full", "antialiased", geistSans.variable, geistMono.variable, "font-sans", inter.variable)}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
-  );
+   return (
+      <html lang="ru" suppressHydrationWarning>
+         <body
+            className={`${geistMono.variable} ${geistSans.variable} font-sans antialiased`}
+         >
+            <MainProvider>
+               <div className="relative flex flex-col min-h-screen">
+                  <ToggleTheme />
+                  {children}
+               </div>
+            </MainProvider>
+         </body>
+      </html>
+   );
 }
