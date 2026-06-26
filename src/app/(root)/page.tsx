@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 import { Home } from './home';
 import { productVariantService } from '@/features/product-variant/services/product-variant.service';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
    title: 'Косметика для Вас',
 };
