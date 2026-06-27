@@ -29,6 +29,6 @@ export default function proxy(request: NextRequest) {
    return NextResponse.next();
 }
 
-export const config = {
-   matcher: ['/auth/:path*', '/dashboard/:path*', '/admin/:path*'],
-};
+// export const config = {
+//    matcher: ['/auth/:path*', '/dashboard/:path*', '/admin/:path*'],
+// };
