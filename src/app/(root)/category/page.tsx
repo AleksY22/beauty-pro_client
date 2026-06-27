@@ -1,9 +1,8 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 
 import { CatalogProducts } from './catalog-products';
 import { productVariantService } from '@/features/product-variant/services/product-variant.service';
-
-export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
    title: 'Каталог товаров',
@@ -16,5 +15,9 @@ async function getVariants() {
 
 export default async function CatalogPage() {
    const data = await getVariants();
-   return <CatalogProducts variants={data} />;
+   return (
+      <Suspense fallback={<div>Загрузка товаров категории...</div>}>
+         <CatalogProducts variants={data} />
+      </Suspense>
+   );
 }
