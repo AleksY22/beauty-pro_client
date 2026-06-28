@@ -148,10 +148,10 @@ export function Cart() {
                               className="w-20 h-20 object-cover rounded"
                            />
                            <div>
-                              <h3 className="font-medium text-sm text-gray-900">
+                              <h3 className="font-medium text-sm">
                                  {item.variant.product.title}
                               </h3>
-                              <p className="text-xs text-gray-400 mt-1">
+                              <p className="text-xs mt-1">
                                  Артикул: {item.variant.sku}
                               </p>
                            </div>
@@ -159,13 +159,13 @@ export function Cart() {
 
                         <div className="flex items-center justify-between sm:justify-end gap-6">
                            {/* Кнопки плюс-минус */}
-                           <div className="flex items-center border border-gray-300 rounded-md">
+                           <div className="flex items-center border rounded-md">
                               <button
                                  disabled={
                                     updateQuantityMutation.isPending ||
                                     item.quantity <= 1
                                  }
-                                 className="px-3 py-1 text-gray-400 disabled:opacity-50"
+                                 className="px-3 py-1 disabled:opacity-50"
                                  onClick={() =>
                                     handleQuantityChange(
                                        item.variantId,
@@ -185,7 +185,7 @@ export function Cart() {
                                     updateQuantityMutation.isPending ||
                                     item.quantity >= item.variant.stock
                                  }
-                                 className="px-3 py-1 text-gray-400 disabled:opacity-50"
+                                 className="px-3 py-1 disabled:opacity-50"
                                  onClick={() =>
                                     handleQuantityChange(
                                        item.variantId,
@@ -200,11 +200,11 @@ export function Cart() {
                            </div>
 
                            <div className="text-center w-30 shrink-0">
-                              <p className="font-semibold text-base text-gray-900">
+                              <p className="font-semibold text-base">
                                  {formatPrice(finalPrice * item.quantity)}
                               </p>
                               {item.variant.discount > 0 && (
-                                 <p className="text-xs text-gray-400 line-through">
+                                 <p className="text-xs line-through">
                                     {formatPrice(basePrice * item.quantity)}
                                  </p>
                               )}
@@ -223,7 +223,7 @@ export function Cart() {
             </div>
 
             {/* Правая панель оформления */}
-            <div className="border border-gray-200 p-6 rounded-lg h-fit bg-gray-50/50 space-y-4">
+            <div className="border p-6 rounded-lg h-fit  space-y-4">
                <h2 className="text-lg font-bold">Детали заказа</h2>
                <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
@@ -231,14 +231,14 @@ export function Cart() {
                         Товары ({items.reduce((sum, i) => sum + i.quantity, 0)}{' '}
                         шт.):
                      </span>
-                     <span className="font-medium text-gray-900">
+                     <span className="font-medium">
                         {formatPrice(baseTotalPrice)}
                      </span>
                   </div>
 
                   {/* Показываем строчку скидки только если она реально есть */}
                   {totalDiscount > 0 && (
-                     <div className="flex justify-between text-gray-400">
+                     <div className="flex justify-between">
                         <span>Общая скидка:</span>
                         <span className="font-medium">
                            - {formatPrice(totalDiscount)}
@@ -247,7 +247,7 @@ export function Cart() {
                   )}
                </div>
                <div className="flex justify-between items-baseline pt-2 border-t">
-                  <span className="text-base font-medium text-gray-900 mr-2">
+                  <span className="text-base font-medium mr-2">
                      Итого к оплате:
                   </span>
                   <span className="text-2xl font-bold">

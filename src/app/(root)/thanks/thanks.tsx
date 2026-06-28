@@ -48,16 +48,12 @@ export default function Thanks() {
       );
    }
 
-   const isPaid =
-      order.status === 'PAID_AND_WAITING' ||
-      order.status === 'PAID_AND_DELIVERING';
-
    return (
       <>
          <Breadcrumbs items={breadcrumbsData} />
          <div className="mx-auto max-w-3xl px-4 py-12 md:py-20">
             <div className="flex flex-col items-center text-center mb-8">
-               <div className="h-16 w-16 bg-rose-50 text-rose-500 rounded-full flex items-center justify-between p-3.5 mb-4 animate-in zoom-in-50 duration-300">
+               <div className="h-16 w-16 rounded-full flex items-center justify-between p-3.5 mb-4 animate-in zoom-in-50 duration-300">
                   <CheckCircle2 className="h-full w-full" />
                </div>
                <h1 className="text-3xl font-bold tracking-tight text-neutral-600 mb-2">
@@ -72,9 +68,9 @@ export default function Thanks() {
                </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-8 justify-center">
                {/* Левая колонка: Детали */}
-               <div className="md:col-span-7 space-y-4">
+               <div className="md:col-span-7 space-y-4 mx-auto">
                   <Card className="border-neutral-200 shadow-sm">
                      <CardHeader className="pb-3">
                         <CardTitle className="text-lg font-semibold flex items-center gap-2">
@@ -87,13 +83,7 @@ export default function Thanks() {
                            <span className="text-neutral-500">
                               Статус заказа:
                            </span>
-                           <span
-                              className={`font-medium ${isPaid ? 'text-emerald-600' : 'text-amber-600'}`}
-                           >
-                              {isPaid
-                                 ? 'Оплачен, ожидает сборки'
-                                 : 'Принят, ожидает оплаты'}
-                           </span>
+                           <span className="font-medium">Принят</span>
                         </div>
                         <div className="flex justify-between border-b border-neutral-100 pb-2">
                            <span className="text-neutral-500">

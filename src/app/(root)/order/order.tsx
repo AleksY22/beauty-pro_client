@@ -515,7 +515,7 @@ export function Order() {
                      </div>
                      {/* ПРАВАЯ КОЛОНКА: Сводка по товарам */}
                      <div className="">
-                        <Card className="sticky top-6 border-neutral-200 bg-neutral-50 shadow-sm">
+                        <Card className="sticky top-6 border shadow-sm">
                            <CardHeader>
                               <CardTitle className="text-xl font-semibold">
                                  Ваш заказ
@@ -532,14 +532,14 @@ export function Order() {
                                        )}{' '}
                                        шт.):
                                     </span>
-                                    <span className="font-medium text-gray-900">
+                                    <span className="font-medium">
                                        {formatPrice(baseTotalPrice || 0)}
                                     </span>
                                  </div>
 
                                  {/* Показываем строчку скидки только если она реально есть */}
                                  {totalDiscount > 0 && (
-                                    <div className="flex justify-between text-gray-400">
+                                    <div className="flex justify-between">
                                        <span>Общая скидка:</span>
                                        <span className="font-medium">
                                           - {formatPrice(totalDiscount)}
@@ -548,7 +548,7 @@ export function Order() {
                                  )}
                               </div>
                               <div className="flex justify-between items-baseline pt-2 border-t">
-                                 <span className="text-base font-medium text-gray-900 mr-2">
+                                 <span className="text-base font-medium mr-2">
                                     Итого к оплате:
                                  </span>
                                  <span className="text-2xl font-bold">
