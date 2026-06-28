@@ -68,9 +68,9 @@ export default function Thanks() {
                </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-8 justify-center">
+            <div className="flex justify-center mb-8 px-4">
                {/* Левая колонка: Детали */}
-               <div className="md:col-span-7 space-y-4 mx-auto w-full max-w-xl">
+               <div className="w-full max-w-xl">
                   <Card className="border-neutral-200 shadow-sm">
                      <CardHeader className="pb-3">
                         <CardTitle className="text-lg font-semibold flex items-center gap-2">
@@ -79,7 +79,7 @@ export default function Thanks() {
                         </CardTitle>
                      </CardHeader>
                      <CardContent className="text-sm space-y-3">
-                        <div className="flex justify-between border-b border-neutral-100 pb-2">
+                        <div className="flex justify-between border-b pb-2">
                            <span className="text-neutral-500 mr-3">
                               Статус заказа:
                            </span>
