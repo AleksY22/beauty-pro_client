@@ -70,7 +70,7 @@ export default function Thanks() {
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mb-8 justify-center">
                {/* Левая колонка: Детали */}
-               <div className="md:col-span-7 space-y-4 mx-auto">
+               <div className="md:col-span-7 space-y-4 mx-auto w-full max-w-xl">
                   <Card className="border-neutral-200 shadow-sm">
                      <CardHeader className="pb-3">
                         <CardTitle className="text-lg font-semibold flex items-center gap-2">
@@ -80,13 +80,15 @@ export default function Thanks() {
                      </CardHeader>
                      <CardContent className="text-sm space-y-3">
                         <div className="flex justify-between border-b border-neutral-100 pb-2">
-                           <span className="text-neutral-500">
+                           <span className="text-neutral-500 mr-3">
                               Статус заказа:
                            </span>
-                           <span className="font-medium">Принят</span>
+                           <span className="font-medium text-neutral-500">
+                              Принят
+                           </span>
                         </div>
-                        <div className="flex justify-between border-b border-neutral-100 pb-2">
-                           <span className="text-neutral-500">
+                        <div className="flex justify-between border-b pb-2">
+                           <span className="text-neutral-500 mr-3">
                               Способ доставки:
                            </span>
                            <span className="font-medium text-neutral-500 flex items-center gap-1">
@@ -95,7 +97,7 @@ export default function Thanks() {
                            </span>
                         </div>
                         <div className="flex justify-between">
-                           <span className="text-neutral-500">
+                           <span className="text-neutral-500 mr-3">
                               Способ оплаты:
                            </span>
                            <span className="font-medium text-neutral-500 flex items-center gap-1">
