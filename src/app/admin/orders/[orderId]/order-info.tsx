@@ -278,7 +278,7 @@ export function OrderInfo() {
                      </div>
 
                      {order.comment && (
-                        <div className="bg-neutral-50 rounded-lg p-3 border border-neutral-100 flex gap-2.5 items-start">
+                        <div className="rounded-lg p-3 border border-neutral-100 flex gap-2.5 items-start">
                            <div>
                               <span className="text-muted-foreground text-xs block">
                                  Комментарий к заказу
