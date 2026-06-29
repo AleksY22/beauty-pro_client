@@ -192,14 +192,14 @@ export function ProductDetails({ variant }: ProductDetailsProps) {
                                        setLoadingVariantId(v.id);
                                        router.push(`/variant/${v.id}`);
                                     }}
-                                    className={`flex flex-col items-center gap-2 p-2 border rounded-md cursor-pointer transition-all shrink-0 w-24 bg-white ${
+                                    className={`relative overflow-hidden flex flex-col items-center gap-2 p-2 border rounded-md cursor-pointer transition-all shrink-0 w-24 bg-white ${
                                        isCurrent
                                           ? 'border-[#F7BAB5] ring-2 ring-[#F7BAB5]'
                                           : 'border-gray-200 hover:border-gray-400'
                                     } ${isLoading ? 'opacity-80 pointer-events-none' : ''}`}
                                  >
                                     {isLoading && (
-                                       <div className="absolute top-2 w-8 h-8 flex items-center justify-center bg-white rounded-full z-10">
+                                       <div className="absolute inset-0 flex items-center justify-center bg-white rounded-full z-10">
                                           <div className="w-5 h-5 border-2 border-[#F7BAB5] border-t-transparent rounded-full animate-spin"></div>
                                        </div>
                                     )}
