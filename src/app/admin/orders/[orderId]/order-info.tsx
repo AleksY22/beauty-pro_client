@@ -33,37 +33,7 @@ import { formatPrice } from '@/shared/lib/format-price';
 
 import { useUpdateOrderStatus } from '@/features/order/hooks/useUpdateOrderStatus';
 import { orderService } from '@/features/order/services/order.service';
-import { OrderStatus } from '@/features/order/types/order.interface';
-
-const STATUS_TRANSLATIONS: Record<
-   OrderStatus,
-   { text: string; color: string }
-> = {
-   [OrderStatus.PENDING]: {
-      text: 'В ожидании',
-      color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-500',
-   },
-   [OrderStatus.PAID_AND_WAITING]: {
-      text: 'Оплачен, в обработке',
-      color: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-500',
-   },
-   [OrderStatus.PAID_AND_DELIVERING]: {
-      text: 'Оплачен, доставляется',
-      color: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-500',
-   },
-   [OrderStatus.DELIVERING]: {
-      text: 'Неоплачен, доставляется',
-      color: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-500',
-   },
-   [OrderStatus.COMPLETED]: {
-      text: 'Завершен',
-      color: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-500',
-   },
-   [OrderStatus.CANCELLED]: {
-      text: 'Отменен',
-      color: 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-500',
-   },
-};
+import { STATUS_TRANSLATIONS } from '@/features/order/types/order.interface';
 
 export function OrderInfo() {
    const params = useParams<{ orderId: string }>();

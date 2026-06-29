@@ -1,5 +1,6 @@
 'use client';
 
+import { OrderStatus, STATUS_TRANSLATIONS } from '../types/order.interface';
 import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, MoreHorizontal, Pencil } from 'lucide-react';
 import Link from 'next/link';
@@ -57,17 +58,29 @@ export const orderColumns: ColumnDef<IOrderColumn>[] = [
    },
    {
       accessorKey: 'status',
-      header: ({ column }) => {
+      header: ({ column }) => (
+         <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+         >
+            Статус
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+         </Button>
+      ),
+      cell: ({ row }) => {
+         const status = row.getValue('status') as OrderStatus;
+         const statusConfig = STATUS_TRANSLATIONS[status];
+
+         if (!statusConfig) {
+            return <span>{status}</span>; // Запасной вариант
+         }
+
          return (
-            <Button
-               variant="ghost"
-               onClick={() =>
-                  column.toggleSorting(column.getIsSorted() === 'asc')
-               }
+            <span
+               className={`px-2.5 py-1 rounded-full text-xs font-semibold ${statusConfig.color}`}
             >
-               Статус
-               <ArrowUpDown className="ml-2 h-4 w-4" />
-            </Button>
+               {statusConfig.text}
+            </span>
          );
       },
    },

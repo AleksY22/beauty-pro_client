@@ -498,7 +498,7 @@ export function Order() {
                                        </FieldLabel>
                                        <Textarea
                                           id="comment"
-                                          placeholder="Введите адрес"
+                                          placeholder="Введите комментарий"
                                           disabled={isLoadingCreate}
                                           {...field}
                                        />
