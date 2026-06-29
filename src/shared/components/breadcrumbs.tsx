@@ -12,8 +12,8 @@ interface BreadcrumbsProps {
 export default function Breadcrumbs({ items }: BreadcrumbsProps) {
    return (
       <nav className="w-full mt-6 mb-5">
-         <div className="w-full mx-auto px-4 pb-2.5">
-            <ul className="w-125 md:w-auto white-space-nowrap">
+         <div className="w-full mx-auto px-4 pb-2.5 overflow-x-auto scrollbar-none">
+            <ul className="flex items-center whitespace-nowrap min-w-max">
                {/* Базовый элемент "Главная" */}
                <li className="inline-block pr-4 mr-2.5 relative text-[15px] leading-4.5">
                   <Link
