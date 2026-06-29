@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState, useSyncExternalStore } from 'react';
 import { toast } from 'sonner';
 
@@ -20,6 +20,11 @@ interface ProductDetailsProps {
 }
 
 export function ProductDetails({ variant }: ProductDetailsProps) {
+   const router = useRouter();
+   const [loadingVariantId, setLoadingVariantId] = useState<string | null>(
+      null,
+   );
+
    const { price, product, discount, stock } = variant;
 
    const items = useSyncExternalStore(
@@ -177,19 +182,31 @@ export function ProductDetails({ variant }: ProductDetailsProps) {
                            {product.variants?.map((v) => {
                               if (!v.color) return null;
                               const isCurrent = v.id === variant.id;
+                              const isLoading = loadingVariantId === v.id;
 
                               return (
-                                 <Link
+                                 <div
                                     key={v.id}
-                                    href={`/variant/${v.id}`}
+                                    onClick={() => {
+                                       if (isCurrent || isLoading) return;
+                                       setLoadingVariantId(v.id);
+                                       router.push(`/variant/${v.id}`);
+                                    }}
                                     className={`flex flex-col items-center gap-2 p-2 border rounded-md cursor-pointer transition-all shrink-0 w-24 bg-white ${
                                        isCurrent
                                           ? 'border-[#F7BAB5] ring-2 ring-[#F7BAB5]'
                                           : 'border-gray-200 hover:border-gray-400'
-                                    }`}
+                                    } ${isLoading ? 'opacity-80 pointer-events-none' : ''}`}
                                  >
+                                    {isLoading && (
+                                       <div className="absolute top-2 w-8 h-8 flex items-center justify-center bg-white rounded-full z-10">
+                                          <div className="w-5 h-5 border-2 border-[#F7BAB5] border-t-transparent rounded-full animate-spin"></div>
+                                       </div>
+                                    )}
                                     <div
-                                       className="w-8 h-8 rounded-full border border-gray-300 shadow-sm"
+                                       className={`w-8 h-8 rounded-full border border-gray-300 shadow-sm transition-transform ${
+                                          isLoading ? 'scale-0' : 'scale-100'
+                                       }`}
                                        style={{
                                           backgroundColor: v.color.value,
                                        }}
@@ -198,7 +215,7 @@ export function ProductDetails({ variant }: ProductDetailsProps) {
                                     <span className="text-[11px] text-gray-600 text-center truncate w-full font-medium">
                                        {v.color.name}
                                     </span>
-                                 </Link>
+                                 </div>
                               );
                            })}
                         </div>
