@@ -27,7 +27,7 @@ export function useLogoutMutation() {
          clearCart();
 
          toast.success('Вы вышли из системы!');
-         router.push(PUBLIC_URL.login());
+         router.push(PUBLIC_URL.home());
       },
       onError(error) {
          toastMessageHandler(error);

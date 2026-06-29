@@ -38,7 +38,7 @@ export function ProductCard({
    };
 
    return (
-      <div className="w-full h-full relative flex flex-col justify-between p-3 border border-gray-100/60 rounded-md bg-white group hover:shadow-md transition-shadow duration-300">
+      <div className="w-full h-full relative flex flex-col justify-between p-3 border border-gray-300/60 rounded-md bg-white group hover:shadow-md transition-shadow duration-300">
          <div
             onClick={handleCardClick}
             className="flex flex-col no-underline mb-4 cursor-pointer"
