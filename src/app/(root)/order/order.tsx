@@ -110,7 +110,7 @@ export function Order() {
       }
    }, [user, form]);
 
-   // Рассчитываем итоговую стоимость на основе реактивного кэша React Query
+   // Рассчитываем итоговую стоимость на основе кэша React Query
    const totalPrice = cartItems?.reduce((acc, item) => {
       const base = Number(item.variant.price);
       const finalPrice = base - (base * item.variant.discount) / 100;
@@ -122,7 +122,7 @@ export function Order() {
       return acc + Number(item.variant.price) * item.quantity;
    }, 0);
 
-   // Общая сумма чистой экономии
+   // Общая сумма экономии
    const totalDiscount = (baseTotalPrice ?? 0) - (totalPrice ?? 0);
 
    const onSubmit = (formData: CheckoutFormValues) => {

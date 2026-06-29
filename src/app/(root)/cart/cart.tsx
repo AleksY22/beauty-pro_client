@@ -46,7 +46,6 @@ export function Cart() {
       stock: number,
    ) => {
       if (newQty > stock) return alert(`Максимум доступно: ${stock} шт.`);
-      // updateQuantity(variantId, newQty);
       updateQuantityMutation.mutate({ variantId, quantity: newQty });
    };
 
@@ -55,35 +54,6 @@ export function Cart() {
       // removeItem(variantId);
       removeItemMutation.mutate(variantId);
    };
-
-   // Инициализация чекаута в ЮKassa
-   // const handleCheckout = async () => {
-   //    try {
-   //       const orderDto = {
-   //          items: items.map((i) => ({
-   //             variantId: i.variantId,
-   //             quantity: i.quantity,
-   //          })),
-   //       };
-   //       const response = await apiClient<{ paymentUrl: string }>({
-   //          url: '/order/create-payment',
-   //          method: 'POST',
-   //          data: orderDto,
-   //       });
-   //       const result = response.data || response;
-
-   //       if (result?.paymentUrl) {
-   //          clearCart();
-   //          window.location.href = result.paymentUrl; // Переход на ЮKassa
-   //       }
-   //       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   //    } catch (error: any) {
-   //       toast.error(
-   //          error?.message ||
-   //             'Ошибка генерации платежа. Возможно, вы не авторизованы.',
-   //       );
-   //    }
-   // };
 
    if (isLoading && items.length > 0)
       return (
@@ -107,7 +77,7 @@ export function Cart() {
          </>
       );
 
-   // Рассчитываем итоговую стоимость на основе реактивного кэша React Query
+   // Рассчитываем итоговую стоимость на основе кэша React Query
    const totalPrice = serverCart.reduce((acc, item) => {
       const base = Number(item.variant.price);
       const finalPrice = base - (base * item.variant.discount) / 100;
@@ -119,7 +89,7 @@ export function Cart() {
       return acc + Number(item.variant.price) * item.quantity;
    }, 0);
 
-   // Общая сумма чистой экономии
+   // Общая сумма экономии
    const totalDiscount = baseTotalPrice - totalPrice;
 
    return (
@@ -236,7 +206,6 @@ export function Cart() {
                      </span>
                   </div>
 
-                  {/* Показываем строчку скидки только если она реально есть */}
                   {totalDiscount > 0 && (
                      <div className="flex justify-between">
                         <span>Общая скидка:</span>

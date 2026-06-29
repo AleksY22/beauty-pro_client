@@ -1,5 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import { formatPrice } from '@/shared/lib/format-price';
 
@@ -18,6 +22,9 @@ export function ProductCard({
    isInCart,
    isAdding,
 }: ProductCardProps) {
+   const router = useRouter();
+   const [isNavigating, setIsNavigating] = useState(false);
+
    const { id, price, discount, product, stock } = variant;
    const productImage = product.images?.[0];
 
@@ -26,12 +33,22 @@ export function ProductCard({
    const newPrice = hasDiscount ? currentPriceNum * (1 - discount / 100) : null;
    const isOutOfStock = stock <= 0;
 
+   const handleCardClick = () => {
+      setIsNavigating(true);
+      router.push(`/variant/${variant.id}`);
+   };
+
    return (
       <div className="w-full h-full relative flex flex-col justify-between p-3 border border-gray-100/60 rounded-md bg-white group hover:shadow-md transition-shadow duration-300">
-         <Link
-            href={`/variant/${variant.id}`}
+         <div
+            onClick={handleCardClick}
             className="flex flex-col no-underline mb-4 cursor-pointer"
          >
+            {isNavigating && (
+               <div className="absolute inset-0 z-50 flex items-center justify-center rounded-md animate-fade-in">
+                  <div className="w-8 h-8 border-4 border-[#63C8D6] border-t-transparent rounded-full animate-spin"></div>
+               </div>
+            )}
             <div className="relative w-full max-w-50 mx-auto aspect-square mb-5 shrink-0 flex items-center justify-center">
                <Image
                   src={productImage}
@@ -42,7 +59,6 @@ export function ProductCard({
                   className="object-contain transition-transform duration-300 group-hover:scale-102"
                />
 
-               {/* Процент скидки: переведен на стандартные утилиты Tailwind */}
                {hasDiscount && (
                   <div className="absolute bottom-0 left-0 text-[14px] font-medium leading-none text-white bg-[#63C8D6] px-2 py-1 z-10 rounded-sm shadow-sm">
                      -{discount}%
@@ -64,13 +80,11 @@ export function ProductCard({
                )}
             </div>
 
-            {/* Название товара: заменен невалидный wrap-break-word на break-words */}
             <h3 className="text-[14px] leading-snug font-normal text-gray-800 mb-2 line-clamp-3 wrap-break-word">
                {product.title}
             </h3>
-         </Link>
+         </div>
 
-         {/* Кнопка "В корзину": стандартизированы padding, width и высоты */}
          <button
             onClick={(e) => {
                e.preventDefault();
@@ -79,7 +93,7 @@ export function ProductCard({
             }}
             type="button"
             disabled={isOutOfStock || isAdding || isInCart}
-            className="w-full max-w-37.5 h-10 text-black px-4 bg-[#F7BAB5] rounded-[3px] text-[14px] font-medium leading-none transition-all duration-300 hover:bg-[#f7e1df] disabled:opacity-40 disabled:hover:bg-[#F7BAB5] disabled:cursor-not-allowed mt-auto"
+            className="w-full max-w-37 h-10 text-black px-4 bg-[#F7BAB5] rounded-[3px] text-[14px] font-medium leading-none transition-all duration-300 hover:bg-[#f7e1df] disabled:opacity-40 disabled:hover:bg-[#F7BAB5] disabled:cursor-not-allowed mt-auto"
          >
             {isAdding
                ? 'Добавление...'
