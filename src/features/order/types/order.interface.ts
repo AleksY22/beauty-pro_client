@@ -62,7 +62,7 @@ export const STATUS_TRANSLATIONS: Record<
    },
    [OrderStatus.PAID_AND_WAITING]: {
       text: 'Оплачен, в обработке',
-      color: 'bg-yellow-300 text-green-800 dark:bg-green-900/30 dark:text-green-500',
+      color: 'bg-yellow-300 text-green-800 dark:bg-yellow-900/30 dark:text-green-500',
    },
    [OrderStatus.PAID_AND_DELIVERING]: {
       text: 'Оплачен, доставляется',
@@ -70,7 +70,7 @@ export const STATUS_TRANSLATIONS: Record<
    },
    [OrderStatus.DELIVERING]: {
       text: 'Неоплачен, доставляется',
-      color: 'bg-red-400 text-green-800 dark:bg-green-900/30 dark:text-green-500',
+      color: 'bg-red-400 text-green-800 dark:bg-red-900/30 dark:text-green-500',
    },
    [OrderStatus.COMPLETED]: {
       text: 'Завершен',
