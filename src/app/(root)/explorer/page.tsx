@@ -1,6 +1,8 @@
 import { Explorer } from './explorer';
 import { productService } from '@/features/product/services/product.service';
 
+export const dynamic = 'force-dynamic';
+
 interface PageProps {
    searchParams: Promise<{
       searchTerm?: string;
