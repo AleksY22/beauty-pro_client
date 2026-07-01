@@ -21,15 +21,10 @@ class ProductService {
       const { data } = await axiosClassic<IProductResponse>({
          url: API_URL.products(),
          method: 'GET',
-         // headers: {
-         //    'Cache-Control': 'no-cache, no-store, must-revalidate',
-         //    Pragma: 'no-cache',
-         //    Expires: '0',
-         // },
          params: {
             searchTerm: searchTerm || undefined,
-            page,
-            perPage,
+            page: page ?? undefined,
+            perPage: perPage ?? undefined,
          },
       });
 

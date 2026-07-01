@@ -12,6 +12,10 @@ import { cn } from '@/shared/lib/utils';
 
 import { productService } from '@/features/product/services/product.service';
 
+interface ICategory {
+   id: string;
+}
+
 interface IVariant {
    id: string;
    price: string | number;
@@ -24,6 +28,7 @@ interface IProduct {
    title: string;
    images: string[];
    variants: IVariant[];
+   category: ICategory | null;
 }
 
 interface Props {
@@ -121,7 +126,7 @@ export function SearchInput({ className }: Props) {
       const trimmed = searchTerm.trim();
 
       if (!trimmed) {
-         router.push('/explorer');
+         // router.push('/explorer');
          return;
       }
 
@@ -155,7 +160,7 @@ export function SearchInput({ className }: Props) {
       if (!mainVariant || !mainVariant.price) return null;
 
       const basePrice = Number(mainVariant.price);
-      if (isNaN(basePrice)) return null; // Защита от кривых данных
+      if (isNaN(basePrice)) return null;
 
       const discount = mainVariant.discount || 0;
 
@@ -230,11 +235,15 @@ export function SearchInput({ className }: Props) {
                         product.images && product.images.length > 0
                            ? product.images[0]
                            : null;
+                     const targetVariantId =
+                        product.variants && product.variants.length > 0
+                           ? product.variants[0].id
+                           : product.id;
 
                      return (
                         <Link
-                           href={`/product/${product.id}`}
-                           key={product.id}
+                           href={`/variant/${targetVariantId}`}
+                           key={targetVariantId}
                            onClick={handleItemClick}
                            className="flex items-center gap-3 px-3 py-2 hover:bg-red-50/50 transition-colors cursor-pointer border-b border-gray-50 last:border-none"
                         >
@@ -307,153 +316,3 @@ export function SearchInput({ className }: Props) {
       </>
    );
 }
-
-//============================Статичный поиск============================
-// import { Button, Input } from '../../ui';
-// import { Search } from 'lucide-react';
-// import { useRouter } from 'next/navigation';
-// import { useState } from 'react';
-
-// import { PUBLIC_URL } from '@/shared/config/url.config';
-
-// export function SearchInput() {
-//    const [searchTerm, setSearchTerm] = useState<string>('');
-
-//    const router = useRouter();
-
-//    const handleSearch = () => {
-//       const trimmedSearch = searchTerm.trim();
-
-//       if (!trimmedSearch) {
-//          // Если строка пустая, отправляем на базовый URL каталога
-//          router.push(PUBLIC_URL.explorer());
-//          return;
-//       }
-
-//       // Безопасно кодируем строку для URL (заменяет пробелы на %20 и т.д.)
-//       const encodedQuery = encodeURIComponent(trimmedSearch);
-//       router.push(PUBLIC_URL.explorer(`?searchTerm=${encodedQuery}`));
-//    };
-
-//    // Позволяет отправлять запрос при нажатии Enter
-//    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-//       if (e.key === 'Enter') {
-//          handleSearch();
-//       }
-//    };
-
-//    return (
-//       <div className="flex items-center relative">
-//          <Input
-//             placeholder="Поиск товаров..."
-//             value={searchTerm}
-//             onChange={(e) => setSearchTerm(e.target.value)}
-//             onKeyDown={handleKeyDown}
-//             className="rounded-lg rounded-r-none focus-visible:ring-transparent pr-8 border-2 border-red-300"
-//          />
-//          <Button className="rounded-l-none" onClick={handleSearch}>
-//             <Search className="size-4" />
-//          </Button>
-//       </div>
-//    );
-// }
-
-//===================================Динамический поиск============================
-// import { Search } from 'lucide-react';
-// import Link from 'next/link';
-// import { useRef, useState } from 'react';
-// import { useClickAway, useDebounce } from 'react-use';
-
-// import { cn } from '@/shared/lib/utils';
-
-// import { productService } from '@/features/product/services/product.service';
-// import { IProduct } from '@/features/product/types/product.interface';
-
-// interface Props {
-//    className?: string;
-// }
-
-// export const SearchInput: React.FC<Props> = ({ className }) => {
-//    const [searchQuery, setSearchQuery] = useState('');
-//    const [focused, setFocused] = useState(false);
-//    const [products, setProducts] = useState<IProduct[]>([]);
-//    const ref = useRef(null);
-
-//    useClickAway(ref, () => {
-//       setFocused(false);
-//    });
-
-//    useDebounce(
-//       async () => {
-//          if (!searchQuery.trim()) {
-//             setProducts([]);
-//             return;
-//          }
-//          try {
-//             const response = await productService.getAll(searchQuery);
-//             if (response && response.products) {
-//                setProducts(response.products);
-//             } else {
-//                setProducts([]);
-//             }
-//          } catch (error) {
-//             console.log(error);
-//             setProducts([]);
-//          }
-//       },
-//       250,
-//       [searchQuery],
-//    );
-
-//    const onClickItem = () => {
-//       setFocused(false);
-//       setSearchQuery('');
-//       setProducts([]);
-//    };
-
-//    return (
-//       <>
-//          {focused && (
-//             <div className="fixed top-0 left-0 bottom-0 right-0 bg-black/50 z-18" />
-//          )}
-//          <div
-//             ref={ref}
-//             className={cn(
-//                'flex rounded-2xl flex-1 justify-between relative h-11 z-18',
-//                className,
-//             )}
-//          >
-//             <Search className="absolute top-1/2 translate-y-[-50%] left-3 h-5 text-gray-400" />
-//             <input
-//                type="text"
-//                name="search"
-//                className="rounded-xl outline-none w-full pl-11 border-2 border-red-300"
-//                placeholder="Например: Лак для волос"
-//                onFocus={() => setFocused(true)}
-//                value={searchQuery}
-//                onChange={(e) => setSearchQuery(e.target.value)}
-//             />
-//             {products.length > 0 && focused && (
-//                <div
-//                   className={cn(
-//                      'absolute w-full rounded-xl py-2 top-14 shadow-md transition-all duration-200 invisible opacity-0 z-30',
-//                      focused && 'visible opacity-100 top-12',
-//                   )}
-//                >
-//                   {products.map((product) => (
-//                      <Link
-//                         href={`/product/${product.id}`}
-//                         key={product.id}
-//                         onClick={onClickItem}
-//                      >
-//                         <div className="px-3 py-2 hover:bg-primary/10">
-//                            {product.title}
-//                         </div>
-//                      </Link>
-//                   ))}
-//                </div>
-//             )}
-//          </div>
-//       </>
-//    );
-// };

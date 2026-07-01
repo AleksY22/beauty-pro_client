@@ -24,8 +24,8 @@ export function ProductCard({
    const router = useRouter();
    const [isNavigating, setIsNavigating] = useState(false);
 
-   const { id, price, discount, product, stock } = variant;
-   const productImage = product.images?.[0];
+   const { id, price, discount, product, stock } = variant || {};
+   const productImage = product?.images?.[0];
 
    const currentPriceNum = parseFloat(price) || 0;
    const hasDiscount = discount > 0;
