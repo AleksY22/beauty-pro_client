@@ -64,7 +64,7 @@ export function Cart() {
    if (isError)
       return (
          <div className="p-8 text-center text-red-500">
-            Ошибка авторизации или получения данных
+            Ошибка получения данных
          </div>
       );
    if (items.length === 0)

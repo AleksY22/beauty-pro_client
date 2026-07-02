@@ -3,6 +3,7 @@
 import { useLoginMutation } from '../hooks';
 import { LoginSchema, TypeLoginSchema } from '../schemes';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Eye, EyeOff } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -27,6 +28,7 @@ export function LoginForm() {
    const { theme } = useTheme();
    const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
    const [isShowTwoFactor, setIsShowTwoFactor] = useState(false);
+   const [showPassword, setShowPassword] = useState(false);
 
    const form = useForm<TypeLoginSchema>({
       //интеграция zod в react-hook-form
@@ -34,6 +36,7 @@ export function LoginForm() {
       defaultValues: {
          email: '',
          password: '',
+         code: '',
       },
    });
 
@@ -47,6 +50,10 @@ export function LoginForm() {
       }
    };
 
+   const togglePasswordVisibility = () => {
+      setShowPassword((prev) => !prev);
+   };
+
    return (
       <AuthWrapper
          heading="Вход"
@@ -56,7 +63,7 @@ export function LoginForm() {
          isShowSocial
       >
          <form
-            id="form-register"
+            id="form-login"
             onSubmit={form.handleSubmit(onSubmit)}
             className="grid gap-2"
          >
@@ -123,15 +130,36 @@ export function LoginForm() {
                               Забыли пароль?
                            </Link>
                         </div>
+                        <div className="relative flex items-center">
+                           <Input
+                              {...field}
+                              id="form-login-password"
+                              type={showPassword ? 'text' : 'password'}
+                              aria-invalid={fieldState.invalid}
+                              placeholder="Введите пароль"
+                              disabled={isLoadingLogin}
+                              className="pr-10 w-full"
+                           />
+                           <button
+                              type="button"
+                              onClick={togglePasswordVisibility}
+                              disabled={isLoadingLogin}
+                              className="absolute right-3 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50 cursor-pointer p-1 rounded-md focus-visible:outline-none select-none"
+                              tabIndex={-1}
+                              aria-label={
+                                 showPassword
+                                    ? 'Скрыть пароль'
+                                    : 'Показать пароль'
+                              }
+                           >
+                              {showPassword ? (
+                                 <EyeOff className="size-4" />
+                              ) : (
+                                 <Eye className="size-4" />
+                              )}
+                           </button>
+                        </div>
 
-                        <Input
-                           {...field}
-                           id="form-login-password"
-                           type="password"
-                           aria-invalid={fieldState.invalid}
-                           placeholder="Введите пароль"
-                           disabled={isLoadingLogin}
-                        />
                         {fieldState.invalid && (
                            <FieldError errors={[fieldState.error]} />
                         )}

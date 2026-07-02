@@ -7,14 +7,11 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
+import { toast } from 'sonner';
 
 import { cn } from '@/shared/lib/utils';
 
 import { productService } from '@/features/product/services/product.service';
-
-interface ICategory {
-   id: string;
-}
 
 interface IVariant {
    id: string;
@@ -28,7 +25,6 @@ interface IProduct {
    title: string;
    images: string[];
    variants: IVariant[];
-   category: ICategory | null;
 }
 
 interface Props {
@@ -112,6 +108,7 @@ export function SearchInput({ className }: Props) {
             }
          } catch (error) {
             console.error('Ошибка при поиске:', error);
+            toast.error('Ошибка при поиске');
             if (requestState.isCurrent) setProducts([]);
          } finally {
             if (requestState.isCurrent) setIsLoading(false);

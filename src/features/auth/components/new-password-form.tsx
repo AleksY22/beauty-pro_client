@@ -3,6 +3,7 @@
 import { useNewPasswordMutation } from '../hooks';
 import { NewPasswordSchema, TypeNewPasswordSchema } from '../schemes';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Eye, EyeOff } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -25,6 +26,7 @@ export function NewPasswordForm() {
    //интеграция recaptcha
    const { theme } = useTheme();
    const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+   const [showPassword, setShowPassword] = useState(false);
 
    const form = useForm<TypeNewPasswordSchema>({
       //интеграция zod в react-hook-form
@@ -42,6 +44,10 @@ export function NewPasswordForm() {
       } else {
          toast.error('Пожалуйста, завершите reCAPTCHA');
       }
+   };
+
+   const togglePasswordVisibility = () => {
+      setShowPassword((prev) => !prev);
    };
 
    return (
@@ -65,14 +71,36 @@ export function NewPasswordForm() {
                         <FieldLabel htmlFor="form-new-password">
                            Пароль
                         </FieldLabel>
-                        <Input
-                           {...field}
-                           id="form-new-password"
-                           type="password"
-                           aria-invalid={fieldState.invalid}
-                           placeholder="Введите пароль"
-                           disabled={isLoadingNewPassword}
-                        />
+                        <div className="relative flex items-center">
+                           <Input
+                              {...field}
+                              id="form-new-password"
+                              type={showPassword ? 'text' : 'password'}
+                              aria-invalid={fieldState.invalid}
+                              placeholder="Введите пароль"
+                              disabled={isLoadingNewPassword}
+                              className="pr-10 w-full"
+                           />
+                           <button
+                              type="button"
+                              onClick={togglePasswordVisibility}
+                              disabled={isLoadingNewPassword}
+                              className="absolute right-3 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-50 cursor-pointer p-1 rounded-md focus-visible:outline-none select-none"
+                              tabIndex={-1}
+                              aria-label={
+                                 showPassword
+                                    ? 'Скрыть пароль'
+                                    : 'Показать пароль'
+                              }
+                           >
+                              {showPassword ? (
+                                 <EyeOff className="size-4" />
+                              ) : (
+                                 <Eye className="size-4" />
+                              )}
+                           </button>
+                        </div>
+
                         {fieldState.invalid && (
                            <FieldError errors={[fieldState.error]} />
                         )}

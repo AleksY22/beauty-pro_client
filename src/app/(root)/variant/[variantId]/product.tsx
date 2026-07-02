@@ -30,7 +30,7 @@ export function Product({
       enabled: !!id,
    });
 
-   const product = variant.product;
+   const product = variant?.product;
 
    const breadcrumbsData = useMemo(
       () => [

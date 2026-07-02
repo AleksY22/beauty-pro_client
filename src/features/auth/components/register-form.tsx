@@ -3,6 +3,7 @@
 import { useRegisterMutation } from '../hooks';
 import { RegisterSchema, TypeRegisterSchema } from '../schemes';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Eye, EyeOff } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -25,6 +26,8 @@ export function RegisterForm() {
    //интеграция recaptcha
    const { theme } = useTheme();
    const [recaptchaValue, setRecaptchaValue] = useState<string | null>(null);
+   const [showPassword, setShowPassword] = useState(false);
+   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
    const form = useForm<TypeRegisterSchema>({
       //интеграция zod в react-hook-form
@@ -114,14 +117,31 @@ export function RegisterForm() {
                         <FieldLabel htmlFor="form-register-password">
                            Пароль
                         </FieldLabel>
-                        <Input
-                           {...field}
-                           id="form-register-password"
-                           type="password"
-                           aria-invalid={fieldState.invalid}
-                           placeholder="Введите пароль"
-                           disabled={isLoadingRegister}
-                        />
+                        <div className="relative flex items-center">
+                           <Input
+                              {...field}
+                              id="form-register-password"
+                              type={showPassword ? 'text' : 'password'}
+                              aria-invalid={fieldState.invalid}
+                              placeholder="Введите пароль"
+                              disabled={isLoadingRegister}
+                              className="pr-10 w-full"
+                           />
+                           <button
+                              type="button"
+                              onClick={() => setShowPassword((prev) => !prev)}
+                              disabled={isLoadingRegister}
+                              className="absolute right-3 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer p-1"
+                              tabIndex={-1}
+                           >
+                              {showPassword ? (
+                                 <EyeOff className="size-4" />
+                              ) : (
+                                 <Eye className="size-4" />
+                              )}
+                           </button>
+                        </div>
+
                         {fieldState.invalid && (
                            <FieldError errors={[fieldState.error]} />
                         )}
@@ -137,14 +157,33 @@ export function RegisterForm() {
                         <FieldLabel htmlFor="form-register-passwordRepeat">
                            Подтверждение пароля
                         </FieldLabel>
-                        <Input
-                           {...field}
-                           id="form-register-passwordRepeat"
-                           type="password"
-                           aria-invalid={fieldState.invalid}
-                           placeholder="Повторите пароль"
-                           disabled={isLoadingRegister}
-                        />
+                        <div className="relative flex items-center">
+                           <Input
+                              {...field}
+                              id="form-register-passwordRepeat"
+                              type={showPasswordRepeat ? 'text' : 'password'}
+                              aria-invalid={fieldState.invalid}
+                              placeholder="Повторите пароль"
+                              disabled={isLoadingRegister}
+                              className="pr-10 w-full"
+                           />
+                           <button
+                              type="button"
+                              onClick={() =>
+                                 setShowPasswordRepeat((prev) => !prev)
+                              }
+                              disabled={isLoadingRegister}
+                              className="absolute right-3 text-gray-400 hover:text-gray-600 transition-colors cursor-pointer p-1"
+                              tabIndex={-1}
+                           >
+                              {showPasswordRepeat ? (
+                                 <EyeOff className="size-4" />
+                              ) : (
+                                 <Eye className="size-4" />
+                              )}
+                           </button>
+                        </div>
+
                         {fieldState.invalid && (
                            <FieldError errors={[fieldState.error]} />
                         )}

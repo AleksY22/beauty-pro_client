@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
@@ -9,10 +8,12 @@ import Breadcrumbs from '@/shared/components/breadcrumbs';
 import { Catalog } from '@/shared/components/catalog/catalog';
 import { PUBLIC_URL } from '@/shared/config/url.config';
 
+import { IProductVariant } from '@/features/product-variant/types/product-variant.interface';
 import {
    IProductResponse,
    productService,
 } from '@/features/product/services/product.service';
+import { IProduct } from '@/features/product/types/product.interface';
 
 interface ExplorerProps {
    products: IProductResponse;
@@ -49,16 +50,15 @@ export function Explorer({ products: initialData }: ExplorerProps) {
    const displayedVariants = useMemo(() => {
       const productsList = data?.products ?? [];
 
-      return productsList.flatMap((product: any) => {
-         const { variants, ...productWithoutVariants } = product;
+      return productsList.flatMap((product: IProduct) => {
+         if (!product.variants || !Array.isArray(product.variants)) return [];
 
-         if (!variants || !Array.isArray(variants)) return [];
-
-         // Для каждого варианта создаем объект, добавляя в него родительский продукт
-         return variants.map((variant) => ({
-            ...variant,
-            product: productWithoutVariants,
-         }));
+         return product.variants.map(
+            (variant): IProductVariant => ({
+               ...variant,
+               product: product,
+            }),
+         );
       });
    }, [data]);
 
