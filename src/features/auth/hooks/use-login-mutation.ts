@@ -38,7 +38,7 @@ export function useLoginMutation(
          } else {
             toast.success('Авторизация прошла успешно!');
 
-            //Запускаем хук слияние гостевой корзины с бэкендом NestJS.
+            //Запускаем хук слияние гостевой корзины с бэкендом
             handleAuthSuccess();
 
             router.push(PUBLIC_URL.home());
