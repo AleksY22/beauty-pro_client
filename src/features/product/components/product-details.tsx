@@ -190,7 +190,9 @@ export function ProductDetails({ variant }: ProductDetailsProps) {
                                     onClick={() => {
                                        if (isCurrent || isLoading) return;
                                        setLoadingVariantId(v.id);
-                                       router.push(`/variant/${v.id}`);
+                                       router.push(`/variant/${v.id}`, {
+                                          scroll: false,
+                                       });
                                     }}
                                     className={`relative overflow-hidden flex flex-col items-center gap-2 p-2 border rounded-md cursor-pointer transition-all shrink-0 w-24 bg-white ${
                                        isCurrent
