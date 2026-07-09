@@ -9,8 +9,12 @@ import axios, { CreateAxiosDefaults } from 'axios';
 
 import { getContentType } from './api.helper';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const options: CreateAxiosDefaults = {
-   baseURL: SERVER_URL,
+   // На проде принудительно пускаем запросы через относительный путь /api (для прокси),
+   // а локально оставляем ваш текущий SERVER_URL
+   baseURL: isProduction ? '/api' : SERVER_URL,
    headers: getContentType(),
    withCredentials: true,
 };
