@@ -34,7 +34,7 @@ class AuthService {
    //================================================================
    public async oauthByProvider(provider: 'google' | 'yandex') {
       const response = await axiosClassic({
-         url: `auth/oauth/connect/${provider}`,
+         url: `api/auth/oauth/connect/${provider}`,
          method: 'GET',
       });
 
