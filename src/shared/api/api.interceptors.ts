@@ -10,11 +10,16 @@ import axios, { CreateAxiosDefaults } from 'axios';
 import { getContentType } from './api.helper';
 
 const isProduction = process.env.NODE_ENV === 'production';
+const isServer = typeof window === 'undefined'; // Проверяем, выполняется ли код на сервере Next.js
 
 const options: CreateAxiosDefaults = {
-   // На проде принудительно пускаем запросы через относительный путь /api (для прокси),
-   // а локально оставляем ваш текущий SERVER_URL
-   baseURL: isProduction ? '/api' : SERVER_URL,
+   // ЕСЛИ НА СЕРВЕРЕ (RSC): шлем полный URL напрямую на NestJS бэкенд, добавляя /api (так как на бэкенде глобальный префикс).
+   // ЕСЛИ НА КЛИЕНТЕ (Браузер): шлем относительный /api, чтобы его перехватил middleware.ts
+   baseURL: isServer
+      ? process.env.SERVER_URL
+      : isProduction
+        ? '/api'
+        : SERVER_URL,
    headers: getContentType(),
    withCredentials: true,
 };
