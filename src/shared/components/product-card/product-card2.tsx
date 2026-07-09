@@ -46,10 +46,7 @@ export function ProductCard({
          >
             {isPending && (
                <div className="absolute inset-0 z-50 flex flex-col items-center justify-center rounded-md bg-white/80 backdrop-blur-[1px] transition-all duration-300">
-                  {/* Спиннер с четкими границами */}
                   <div className="w-8 h-8 border-4 border-gray-200 border-t-[#63C8D6] rounded-full animate-spin"></div>
-
-                  {/* Маленький текст для 100% проверки видимости */}
                   <span className="text-[12px] text-gray-500 mt-2 font-medium">
                      Загрузка...
                   </span>
