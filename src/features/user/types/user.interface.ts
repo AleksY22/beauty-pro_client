@@ -1,3 +1,6 @@
+import { IOrder } from '@/features/order/types/order.interface';
+import { IProduct } from '@/features/product/types/product.interface';
+
 export enum UserRole {
    Regular = 'REGULAR',
    Admin = 'ADMIN',
@@ -34,6 +37,6 @@ export interface IUser {
    isTwoFactorEnabled: boolean;
    method: AuthMethod;
    accounts: IAccount[];
-   //favorites: IProduct[];
-   //orders: IOrder[];
+   favorites: IProduct[];
+   orders: IOrder[];
 }

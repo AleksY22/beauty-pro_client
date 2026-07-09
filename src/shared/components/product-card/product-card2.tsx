@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useTransition } from 'react';
 
 import { formatPrice } from '@/shared/lib/format-price';
 
@@ -22,7 +22,7 @@ export function ProductCard({
    isAdding,
 }: ProductCardProps) {
    const router = useRouter();
-   const [isNavigating, setIsNavigating] = useState(false);
+   const [isPending, startTransition] = useTransition();
 
    const { id, price, discount, product, stock } = variant || {};
    const productImage = product?.images?.[0];
@@ -33,8 +33,9 @@ export function ProductCard({
    const isOutOfStock = stock <= 0;
 
    const handleCardClick = () => {
-      setIsNavigating(true);
-      router.push(`/variant/${variant.id}`);
+      startTransition(() => {
+         router.push(`/variant/${variant.id}`);
+      });
    };
 
    return (
@@ -43,11 +44,18 @@ export function ProductCard({
             onClick={handleCardClick}
             className="flex flex-col no-underline mb-4 cursor-pointer"
          >
-            {isNavigating && (
-               <div className="absolute inset-0 z-50 flex items-center justify-center rounded-md animate-fade-in">
-                  <div className="w-8 h-8 border-4 border-[#63C8D6] border-t-transparent rounded-full animate-spin"></div>
+            {isPending && (
+               <div className="absolute inset-0 z-50 flex flex-col items-center justify-center rounded-md bg-white/80 backdrop-blur-[1px] transition-all duration-300">
+                  {/* Спиннер с четкими границами */}
+                  <div className="w-8 h-8 border-4 border-gray-200 border-t-[#63C8D6] rounded-full animate-spin"></div>
+
+                  {/* Маленький текст для 100% проверки видимости */}
+                  <span className="text-[12px] text-gray-500 mt-2 font-medium">
+                     Загрузка...
+                  </span>
                </div>
             )}
+
             <div className="relative w-full max-w-50 mx-auto aspect-square mb-5 shrink-0 flex items-center justify-center">
                <Image
                   src={productImage}

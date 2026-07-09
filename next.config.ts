@@ -35,7 +35,7 @@ const nextConfig: NextConfig = {
             protocol: 'https',
             hostname: 'beauty-pro-server.vercel.app',
             port: '4000',
-            pathname: '/uploads/**',
+            pathname: '/api/uploads/**',
          },
       ],
    },
