@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // import {
 //   getAccessToken,
 //   removeTokenFromStorage,
@@ -9,7 +10,6 @@ import axios, { CreateAxiosDefaults } from 'axios';
 
 import { getContentType } from './api.helper';
 
-const isProduction = process.env.NODE_ENV === 'production';
 const isServer = typeof window === 'undefined'; // Проверяем, выполняется ли код на сервере Next.js
 
 const options: CreateAxiosDefaults = {
@@ -26,23 +26,46 @@ const axiosClassic = axios.create(options);
 
 const apiClient = axios.create(options);
 
-// Интерцептор ОТВЕТА для развертывания data и обработки 401
-apiClient.interceptors.response.use(
-   (response) => response.data, // Сразу возвращаем body (массив корзины и т.д.)
-   async (error) => {
-      const message =
-         error.response?.data?.message || error.message || 'Ошибка запроса';
+const handleResponseError = async (error: any) => {
+   const backendMessage = error.response?.data?.message;
 
-      // Если сессия протухла (бэкенд вернул 401)
-      if (error.response?.status === 401) {
-         if (typeof window !== 'undefined') {
-            // Перенаправляем на логин, так как сессия express-session завершена
-            window.location.href = PUBLIC_URL.login();
-         }
+   // Формируем чистый текст (обрабатываем и массивы валидации, и одиночные строки)
+   const message = Array.isArray(backendMessage)
+      ? backendMessage.join('. ')
+      : backendMessage || error.message || 'Ошибка запроса';
+
+   // Если сессия протухла (401)
+   if (error.response?.status === 401) {
+      if (typeof window !== 'undefined') {
+         window.location.href = PUBLIC_URL.login();
       }
+   }
 
-      return Promise.reject(new Error(message));
-   },
-);
+   // Обязательно упаковываем наш чистый текст в новый объект Error
+   return Promise.reject(new Error(message));
+};
+
+// ВЕШАЕМ ИНТЕРЦЕПТОРЫ НА ОБА ИНСТАНСА!
+axiosClassic.interceptors.response.use((res) => res.data, handleResponseError);
+apiClient.interceptors.response.use((res) => res.data, handleResponseError);
+
+// Интерцептор ОТВЕТА для развертывания data и обработки 401
+// apiClient.interceptors.response.use(
+//    (response) => response.data, // Сразу возвращаем body (массив корзины и т.д.)
+//    async (error) => {
+//       const message =
+//          error.response?.data?.message || error.message || 'Ошибка запроса';
+
+//       // Если сессия протухла (бэкенд вернул 401)
+//       if (error.response?.status === 401) {
+//          if (typeof window !== 'undefined') {
+//             // Перенаправляем на логин, так как сессия express-session завершена
+//             window.location.href = PUBLIC_URL.login();
+//          }
+//       }
+
+//       return Promise.reject(new Error(message));
+//    },
+// );
 
 export { axiosClassic, apiClient };
