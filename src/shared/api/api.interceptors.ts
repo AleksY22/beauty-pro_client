@@ -37,7 +37,11 @@ const handleResponseError = async (error: any) => {
    // Если сессия протухла (401)
    if (error.response?.status === 401) {
       if (typeof window !== 'undefined') {
-         window.location.href = PUBLIC_URL.login();
+         // КРИТИЧЕСКИ ВАЖНО: делаем редирект ТОЛЬКО если пользователь НЕ на странице входа!
+         // Если он уже на /auth/login, мы НЕ перезагружаем страницу, давая тоасту спокойно висеть на экране.
+         if (window.location.pathname !== PUBLIC_URL.login()) {
+            window.location.href = PUBLIC_URL.login();
+         }
       }
    }
 
