@@ -10,7 +10,8 @@ export default function proxy(request: NextRequest) {
 
    //Проксирование api
    if (pathname.startsWith('/api')) {
-      const backendOrigin = process.env.SERVER_URL || 'http://localhost:4000';
+      const backendOrigin =
+         process.env.ALLOWED_ORIGIN || 'http://localhost:4000';
 
       // Просто перенаправляем /api/users/profile прямо на http://localhost:4000/api/users/profile
       const targetUrl = new URL(pathname + nextUrl.search, backendOrigin);

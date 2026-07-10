@@ -16,10 +16,8 @@ const options: CreateAxiosDefaults = {
    // ЕСЛИ НА СЕРВЕРЕ (RSC): шлем полный URL напрямую на NestJS бэкенд, добавляя /api (так как на бэкенде глобальный префикс).
    // ЕСЛИ НА КЛИЕНТЕ (Браузер): шлем относительный /api, чтобы его перехватил middleware.ts
    baseURL: isServer
-      ? `${process.env.SERVER_URL}/api`
-      : isProduction
-        ? '/api'
-        : SERVER_URL,
+      ? `${process.env.ALLOWED_ORIGIN}/api` // На сервере Next.js шлем запросы НАПРЯМУЮ на NestJS
+      : SERVER_URL, // В браузере шлем относительные запросы на '/api' (для прокси)
    headers: getContentType(),
    withCredentials: true,
 };
