@@ -16,7 +16,7 @@ const options: CreateAxiosDefaults = {
    // ЕСЛИ НА СЕРВЕРЕ (RSC): шлем полный URL напрямую на NestJS бэкенд, добавляя /api (так как на бэкенде глобальный префикс).
    // ЕСЛИ НА КЛИЕНТЕ (Браузер): шлем относительный /api, чтобы его перехватил middleware.ts
    baseURL: isServer
-      ? `${process.env.ALLOWED_ORIGIN}/api` // На сервере Next.js шлем запросы НАПРЯМУЮ на NestJS
+      ? `${process.env.ALLOWED_ORIGIN || 'https://beauty-pro-server.vercel.app'}/api` // На сервере Next.js шлем запросы НАПРЯМУЮ на NestJS
       : SERVER_URL, // В браузере шлем относительные запросы на '/api' (для прокси)
    headers: getContentType(),
    withCredentials: true,
@@ -27,12 +27,7 @@ const axiosClassic = axios.create(options);
 const apiClient = axios.create(options);
 
 const handleResponseError = async (error: any) => {
-   const backendMessage = error.response?.data?.message;
-
-   // Формируем чистый текст (обрабатываем и массивы валидации, и одиночные строки)
-   const message = Array.isArray(backendMessage)
-      ? backendMessage.join('. ')
-      : backendMessage || error.message || 'Ошибка запроса';
+   const message = error.response?.data?.message;
 
    // Если сессия протухла (401)
    if (error.response?.status === 401) {
