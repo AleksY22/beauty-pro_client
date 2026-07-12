@@ -7,24 +7,26 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 
+import { PUBLIC_URL } from '@/shared/config/url.config';
+
 // Имитация данных
 const slides = [
    {
       id: 1,
       title: 'КИБЕР ПОНЕДЕЛЬНИК! ФИКСИРУЕМ ЦЕНЫ!',
-      link: '/catalog/sales',
+      link: PUBLIC_URL.catalog('sales'),
       image: '/slider/primary-slider.png',
    },
    {
       id: 2,
       title: 'НОВАЯ КОЛЛЕКЦИЯ ДЛЯ МАНИКЮРА',
-      link: '/catalog/manicure',
+      link: PUBLIC_URL.category('cmpjny81k0000cgl59ezsz8pi'),
       image: '/slider/primary-slider.png',
    },
    {
       id: 3,
       title: 'КИБЕР ПОНЕДЕЛЬНИК! ФИКСИРУЕМ ЦЕНЫ!',
-      link: '/catalog/sales',
+      link: PUBLIC_URL.catalog('sales'),
       image: '/slider/primary-slider.png',
    },
 ];
