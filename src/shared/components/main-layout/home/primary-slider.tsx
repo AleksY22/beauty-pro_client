@@ -20,7 +20,7 @@ const slides = [
    {
       id: 2,
       title: 'НОВАЯ КОЛЛЕКЦИЯ ДЛЯ МАНИКЮРА',
-      link: PUBLIC_URL.category('/cmpjny81k0000cgl59ezsz8pi'),
+      link: PUBLIC_URL.category('cmpjny81k0000cgl59ezsz8pi'),
       image: '/slider/primary-slider.png',
    },
    {
