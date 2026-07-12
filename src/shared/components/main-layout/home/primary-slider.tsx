@@ -14,19 +14,19 @@ const slides = [
    {
       id: 1,
       title: 'КИБЕР ПОНЕДЕЛЬНИК! ФИКСИРУЕМ ЦЕНЫ!',
-      link: PUBLIC_URL.catalog('sales'),
+      link: PUBLIC_URL.catalog('/sales'),
       image: '/slider/primary-slider.png',
    },
    {
       id: 2,
       title: 'НОВАЯ КОЛЛЕКЦИЯ ДЛЯ МАНИКЮРА',
-      link: PUBLIC_URL.category('cmpjny81k0000cgl59ezsz8pi'),
+      link: PUBLIC_URL.category('/cmpjny81k0000cgl59ezsz8pi'),
       image: '/slider/primary-slider.png',
    },
    {
       id: 3,
       title: 'КИБЕР ПОНЕДЕЛЬНИК! ФИКСИРУЕМ ЦЕНЫ!',
-      link: PUBLIC_URL.catalog('sales'),
+      link: PUBLIC_URL.catalog('/sales'),
       image: '/slider/primary-slider.png',
    },
 ];
