@@ -3,16 +3,16 @@ import Link from 'next/link';
 
 const HELP_LINKS = [
    { text: 'Доставка и оплата', href: '/help/delivery' },
-   { text: 'Как сделать заказ', href: '/help/how-to-order' },
+   { text: 'Как сделать заказ', href: '/help/order' },
    { text: 'Возврат', href: '/help/returns' },
    { text: 'Политика конфиденциальности', href: '/help/privacy' },
 ];
 
 const COMPANY_LINKS = [
-   { text: 'О нас', href: '/about' },
-   { text: 'Адреса наших магазинов', href: '/shops' },
-   { text: 'Наши вакансии', href: '/careers' },
-   { text: 'Сотрудничество с нами', href: '/b2b' },
+   { text: 'О нас', href: '/company/about' },
+   { text: 'Адреса наших магазинов', href: '/company/shops' },
+   { text: 'Наши вакансии', href: '/company/careers' },
+   { text: 'Сотрудничество с нами', href: '/company/cooperation' },
 ];
 
 const SOCIAL_ICONS = [
