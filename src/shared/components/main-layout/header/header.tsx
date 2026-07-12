@@ -1,5 +1,6 @@
 import { Grip, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 import { Button } from '@/shared/components/ui';
 import { PUBLIC_URL } from '@/shared/config/url.config';
@@ -25,7 +26,13 @@ export function Header() {
                </Link>
             </Button>
             <div className="hidden md:block flex-1 max-w-md mx-4">
-               <SearchInput />
+               <Suspense
+                  fallback={
+                     <div className="h-10 bg-gray-100 animate-pulse rounded-lg w-full" />
+                  }
+               >
+                  <SearchInput />
+               </Suspense>
             </div>
             <div className="flex gap-x-3 md:gap-x-5 items-center justify-end">
                <Link href={PUBLIC_URL.cart()} className="relative">
@@ -36,7 +43,13 @@ export function Header() {
             </div>
          </div>
          <div className="mt-4 flex items-center justify-center md:hidden w-full">
-            <SearchInput />
+            <Suspense
+               fallback={
+                  <div className="h-10 bg-gray-100 animate-pulse rounded-lg w-full" />
+               }
+            >
+               <SearchInput />
+            </Suspense>
          </div>
       </div>
    );
