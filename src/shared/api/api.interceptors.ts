@@ -4,20 +4,22 @@
 //   removeTokenFromStorage,
 // } from '../../features/auth/services/auth-token.service';
 // import { authService } from '../../features/auth/services/auth.service';
-import { SERVER_URL } from '../config/api.config';
 import { PUBLIC_URL } from '../config/url.config';
 import axios, { CreateAxiosDefaults } from 'axios';
 
 import { getContentType } from './api.helper';
 
-const isServer = typeof window === 'undefined'; // Проверяем, выполняется ли код на сервере Next.js
+const isServer = typeof window === 'undefined';
+const isProduction = process.env.NODE_ENV === 'production';
+
+const clientUrl = isProduction ? '/api' : 'http://localhost:3000/api';
+const serverUrl =
+   process.env.ALLOWED_ORIGIN || 'https://beauty-pro-server.vercel.app';
 
 const options: CreateAxiosDefaults = {
-   // ЕСЛИ НА СЕРВЕРЕ (RSC): шлем полный URL напрямую на NestJS бэкенд, добавляя /api (так как на бэкенде глобальный префикс).
-   // ЕСЛИ НА КЛИЕНТЕ (Браузер): шлем относительный /api, чтобы его перехватил middleware.ts
-   baseURL: isServer
-      ? `${process.env.ALLOWED_ORIGIN || 'https://beauty-pro-server.vercel.app'}/api` // На сервере Next.js шлем запросы НАПРЯМУЮ на NestJS
-      : SERVER_URL, // В браузере шлем относительные запросы на '/api' (для прокси)
+   // Если на сервере (RSC): шлем запрос напрямую на NestJS бэкенд
+   // Если на клиенте (Браузер): шлем относительный '/api', чтобы его перехватил middleware.ts
+   baseURL: isServer ? `${serverUrl}/api` : clientUrl,
    headers: getContentType(),
    withCredentials: true,
 };
@@ -45,8 +47,8 @@ const handleResponseError = async (error: any) => {
 };
 
 // ВЕШАЕМ ИНТЕРЦЕПТОРЫ НА ОБА ИНСТАНСА!
-axiosClassic.interceptors.response.use((res) => res.data, handleResponseError);
-apiClient.interceptors.response.use((res) => res.data, handleResponseError);
+axiosClassic.interceptors.response.use((res) => res, handleResponseError);
+apiClient.interceptors.response.use((res) => res, handleResponseError);
 
 // Интерцептор ОТВЕТА для развертывания data и обработки 401
 // apiClient.interceptors.response.use(
