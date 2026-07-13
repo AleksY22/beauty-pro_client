@@ -5,7 +5,7 @@ import { Loader2, Search, SearchX, X } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
 import { toast } from 'sonner';
 
@@ -44,6 +44,8 @@ export function SearchInput({ className }: Props) {
 
    const [prevInitialSearch, setPrevInitialSearch] =
       useState<string>(initialSearch);
+
+   const searchInputId = useId();
 
    const ref = useRef<HTMLDivElement>(null);
 
@@ -187,7 +189,7 @@ export function SearchInput({ className }: Props) {
          >
             <div className="relative flex-1 flex items-center">
                <Input
-                  id="search-input"
+                  id={searchInputId}
                   name="search"
                   placeholder="Поиск товаров..."
                   value={searchTerm}
