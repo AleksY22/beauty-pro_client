@@ -13,7 +13,7 @@ export function CatalogButton() {
    const [isPending, startTransition] = useTransition();
 
    const handleNavigate = () => {
-      if (pathname === PUBLIC_URL.category()) return;
+      if (pathname === '/category') return;
 
       startTransition(() => {
          router.push(PUBLIC_URL.category());
@@ -24,7 +24,7 @@ export function CatalogButton() {
       <Button
          onClick={handleNavigate}
          disabled={isPending}
-         className="flex gap-2 bg-red-300 hover:bg-red-300/70 text-amber-50 font-bold text-lg tracking-widest px-4 py-3 rounded-[5px] h-auto disabled:pointer-events-none disabled:opacity-70 transition-all"
+         className="flex gap-2 bg-red-300 hover:bg-red-300/70 text-amber-50 font-bold text-lg tracking-widest px-3 py-2 rounded-[5px] h-auto disabled:pointer-events-none disabled:opacity-70 transition-all"
       >
          {isPending ? (
             <Loader2 className="h-5 w-5 animate-spin" />
