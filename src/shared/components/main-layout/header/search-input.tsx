@@ -187,6 +187,8 @@ export function SearchInput({ className }: Props) {
          >
             <div className="relative flex-1 flex items-center">
                <Input
+                  id="search-input"
+                  name="search"
                   placeholder="Поиск товаров..."
                   value={searchTerm}
                   onChange={handleInputChange}
