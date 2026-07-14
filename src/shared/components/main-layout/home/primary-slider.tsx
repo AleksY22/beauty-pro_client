@@ -150,20 +150,38 @@ export function PrimarySlider() {
                   </button>
                </div>
                {/* Блок пагинации (Точки) */}
-               <div className="flex justify-center items-center gap-2 mt-2">
-                  {scrollSnaps.map((_, index) => (
-                     <button
-                        key={index}
-                        onClick={() => scrollTo(index)}
-                        className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                           index === selectedIndex
-                              ? 'w-8 bg-neutral-800'
-                              : 'w-2.5 bg-neutral-300 hover:bg-neutral-400'
-                        }`}
-                        aria-label={`Перейти к слайду ${index + 1}`}
-                     />
-                  ))}
+               <div className="flex justify-center items-center gap-2 h-6 mt-4">
+                  {scrollSnaps.length > 0 ? (
+                     scrollSnaps.map((_, index) => (
+                        <button
+                           key={index}
+                           onClick={() => scrollTo(index)}
+                           className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                              index === selectedIndex
+                                 ? 'w-8 bg-neutral-800'
+                                 : 'w-2.5 bg-neutral-300 hover:bg-neutral-400'
+                           }`}
+                           aria-label={`Перейти к слайду ${index + 1}`}
+                        />
+                     ))
+                  ) : (
+                     <div className="h-2.5 w-8 bg-neutral-200/50 rounded-full animate-pulse" />
+                  )}
                </div>
+               {/* <div className="flex justify-center items-center gap-2 mt-2">
+               {scrollSnaps.map((_, index) => (
+                  <button
+                     key={index}
+                     onClick={() => scrollTo(index)}
+                     className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                        index === selectedIndex
+                           ? 'w-8 bg-neutral-800'
+                           : 'w-2.5 bg-neutral-300 hover:bg-neutral-400'
+                     }`}
+                     aria-label={`Перейти к слайду ${index + 1}`}
+                  />
+               ))}
+            </div> */}
             </div>
          </div>
       </div>
