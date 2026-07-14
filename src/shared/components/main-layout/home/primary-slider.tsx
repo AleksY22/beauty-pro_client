@@ -9,7 +9,6 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { PUBLIC_URL } from '@/shared/config/url.config';
 
-// Имитация данных
 const slides = [
    {
       id: 1,
@@ -90,66 +89,68 @@ export function PrimarySlider() {
 
    return (
       <div className="w-full py-6">
-         <div className="mx-auto px-4 relative">
-            {/* Ограничитель видимости слайдера (Viewport) */}
-            <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
-               {/* Контейнер для слайдов (Flex-ряд) */}
-               <div className="flex">
-                  {slides.map((slide) => (
-                     <div
-                        key={slide.id}
-                        className="min-w-full relative shrink-0"
-                     >
-                        <div className="relative aspect-21/9 md:aspect-3/1 w-full bg-neutral-900 overflow-hidden flex items-center justify-center content-visibility-auto">
-                           {/* Фоновое изображение слайда */}
-                           <div className="absolute inset-0 w-full h-full z-0">
-                              <Image
-                                 src={slide.image}
-                                 alt={slide.title}
-                                 fill
-                                 // loading="eager"
-                                 priority={slide.id === 1} // Первая картинка загружается мгновенно
-                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
-                                 className="object-cover object-center opacity-85 transition-transform duration-700"
-                              />
-                           </div>
+         <div className="mx-auto px-4 max-w-[1200px]">
+            <div className="relative w-full">
+               {/* Ограничитель видимости слайдера (Viewport) */}
+               <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+                  {/* Контейнер для слайдов (Flex-ряд) */}
+                  <div className="flex">
+                     {slides.map((slide) => (
+                        <div
+                           key={slide.id}
+                           className="min-w-full relative shrink-0"
+                        >
+                           <div className="relative aspect-21/9 md:aspect-3/1 w-full bg-neutral-900 overflow-hidden flex items-center justify-center content-visibility-auto">
+                              {/* Фоновое изображение слайда */}
+                              <div className="absolute inset-0 w-full h-full z-0">
+                                 <Image
+                                    src={slide.image}
+                                    alt={slide.title}
+                                    fill
+                                    // loading="eager"
+                                    priority={slide.id === 1} // Первая картинка загружается мгновенно
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
+                                    className="object-cover object-center opacity-85 transition-transform duration-700"
+                                 />
+                              </div>
 
-                           {/* Контент поверх изображения */}
-                           <div className="relative z-10 max-w-sm md:max-w-2xl px-8 md:px-16 flex flex-col gap-4 text-center items-center">
-                              <h2 className="text-lg sm:text-3xl md:text-4xl text-gray-600 font-black tracking-wide leading-tight uppercase drop-shadow-md">
-                                 {slide.title}
-                              </h2>
-                              <Link
-                                 href={slide.link}
-                                 className="inline-flex w-fit bg-white hover:bg-neutral-400 text-neutral-900 font-semibold px-6 py-3 rounded-lg shadow-sm transition-colors text-sm md:text-base text-center"
-                              >
-                                 Подробнее
-                              </Link>
+                              {/* Контент поверх изображения */}
+                              <div className="relative z-10 max-w-sm md:max-w-2xl px-8 md:px-16 flex flex-col gap-4 text-center items-center">
+                                 <h2 className="text-lg sm:text-3xl md:text-4xl text-gray-600 font-black tracking-wide leading-tight uppercase drop-shadow-md">
+                                    {slide.title}
+                                 </h2>
+                                 <Link
+                                    href={slide.link}
+                                    className="inline-flex w-fit bg-white hover:bg-neutral-400 text-neutral-900 font-semibold px-6 py-3 rounded-lg shadow-sm transition-colors text-sm md:text-base text-center"
+                                 >
+                                    Подробнее
+                                 </Link>
+                              </div>
                            </div>
                         </div>
-                     </div>
-                  ))}
+                     ))}
+                  </div>
+               </div>
+               {/* Кнопки управления (Стрелки) */}
+               <div className="absolute inset-y-0 left-0 right-0 px-4 md:px-6 flex items-center justify-between pointer-events-none z-20">
+                  <button
+                     onClick={scrollPrev}
+                     className="pointer-events-auto w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/80 hover:bg-white shadow-md flex items-center justify-center cursor-pointer text-neutral-800 transition-all hover:scale-105 active:scale-95"
+                     aria-label="Предыдущий слайд"
+                  >
+                     <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" />
+                  </button>
+
+                  <button
+                     onClick={scrollNext}
+                     className="pointer-events-auto w-9 h-9 md:w-11 md:h-11 rounded-full bg-white/80 hover:bg-white shadow-md flex items-center justify-center cursor-pointer text-neutral-800 transition-all hover:scale-105 active:scale-95"
+                     aria-label="Следующий слайд"
+                  >
+                     <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
+                  </button>
                </div>
             </div>
 
-            {/* Кнопки управления (Стрелки) */}
-            <div className="primary__slider-buttons absolute top-1/2 -translate-y-1/2 left-0 right-0 px-8 flex justify-between pointer-events-none z-20">
-               <button
-                  onClick={scrollPrev}
-                  className="primary__slider-button primary__slider-button_prev pointer-events-auto w-8 h-8 md:w-11 md:h-11 rounded-full bg-white/80 hover:bg-white shadow-md flex items-center justify-center cursor-pointer text-neutral-800 transition-all hover:scale-105 active:scale-95"
-                  aria-label="Предыдущий слайд"
-               >
-                  <ChevronLeft className="w-6 h-6" />
-               </button>
-
-               <button
-                  onClick={scrollNext}
-                  className="primary__slider-button primary__slider-button_next pointer-events-auto w-8 h-8 md:w-11 md:h-11 rounded-full bg-white/80 hover:bg-white shadow-md flex items-center justify-center cursor-pointer text-neutral-800 transition-all hover:scale-105 active:scale-95"
-                  aria-label="Следующий слайд"
-               >
-                  <ChevronRight className="w-6 h-6" />
-               </button>
-            </div>
             {/* Блок пагинации (Точки) */}
             <div className="flex justify-center items-center gap-2 mt-2">
                {scrollSnaps.map((_, index) => (
