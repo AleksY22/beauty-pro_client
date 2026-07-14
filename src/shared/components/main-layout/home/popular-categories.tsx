@@ -18,7 +18,7 @@ export function PopularCategories({ title }: CatalogTitle) {
       return (
          <div className="category mb-18.75 w-full animate-pulse">
             <div className="max-w-360 mx-auto px-4">
-               <div className="h-10.75 w-64 bg-neutral-200 rounded-md mb-8.75" />
+               <div className="h-10.75 w-64 bg-neutral-200 rounded-md mb-6" />
                {/* Сетка скелетонов одинакового размера */}
                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {[1, 2, 3].map((i) => (
