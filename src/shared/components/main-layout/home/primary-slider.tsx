@@ -89,7 +89,7 @@ export function PrimarySlider() {
 
    return (
       <div className="w-full py-6">
-         <div className="mx-auto px-4 max-w-[1200px]">
+         <div className="mx-auto px-4">
             <div className="relative w-full">
                {/* Ограничитель видимости слайдера (Viewport) */}
                <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
@@ -149,22 +149,21 @@ export function PrimarySlider() {
                      <ChevronRight className="w-5 h-5 md:w-6 md:h-6" />
                   </button>
                </div>
-            </div>
-
-            {/* Блок пагинации (Точки) */}
-            <div className="flex justify-center items-center gap-2 mt-2">
-               {scrollSnaps.map((_, index) => (
-                  <button
-                     key={index}
-                     onClick={() => scrollTo(index)}
-                     className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                        index === selectedIndex
-                           ? 'w-8 bg-neutral-800'
-                           : 'w-2.5 bg-neutral-300 hover:bg-neutral-400'
-                     }`}
-                     aria-label={`Перейти к слайду ${index + 1}`}
-                  />
-               ))}
+               {/* Блок пагинации (Точки) */}
+               <div className="flex justify-center items-center gap-2 mt-2">
+                  {scrollSnaps.map((_, index) => (
+                     <button
+                        key={index}
+                        onClick={() => scrollTo(index)}
+                        className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                           index === selectedIndex
+                              ? 'w-8 bg-neutral-800'
+                              : 'w-2.5 bg-neutral-300 hover:bg-neutral-400'
+                        }`}
+                        aria-label={`Перейти к слайду ${index + 1}`}
+                     />
+                  ))}
+               </div>
             </div>
          </div>
       </div>
