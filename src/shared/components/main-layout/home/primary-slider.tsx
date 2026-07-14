@@ -92,15 +92,18 @@ export function PrimarySlider() {
       <div className="w-full py-6">
          <div className="mx-auto px-4 relative">
             {/* Ограничитель видимости слайдера (Viewport) */}
-            <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+            <div
+               className="overflow-hidden rounded-2xl aspect-21/9 md:aspect-3/1 w-full bg-neutral-900"
+               ref={emblaRef}
+            >
                {/* Контейнер для слайдов (Flex-ряд) */}
-               <div className="flex">
+               <div className="flex h-full">
                   {slides.map((slide) => (
                      <div
                         key={slide.id}
-                        className="min-w-full relative shrink-0"
+                        className="min-w-full relative shrink-0 h-full"
                      >
-                        <div className="relative aspect-21/9 md:aspect-3/1 w-full bg-neutral-900 overflow-hidden flex items-center justify-center content-visibility-auto">
+                        <div className="relative w-full overflow-hidden flex items-center justify-center content-visibility-auto">
                            {/* Фоновое изображение слайда */}
                            <div className="absolute inset-0 w-full h-full z-0">
                               <Image

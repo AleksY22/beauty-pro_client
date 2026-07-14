@@ -16,9 +16,9 @@ export function PopularCategories({ title }: CatalogTitle) {
    // Состояние загрузки (скелетоны одинакового размера)
    if (isLoading) {
       return (
-         <div className="category mb-18.75 w-full animate-pulse">
+         <div className="category mb-18 w-full animate-pulse">
             <div className="max-w-360 mx-auto px-4">
-               <div className="h-10.75 w-64 bg-neutral-200 rounded-md mb-6" />
+               <div className="h-10 w-64 bg-neutral-200 rounded-md mb-6" />
                {/* Сетка скелетонов одинакового размера */}
                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {[1, 2, 3].map((i) => (
@@ -37,7 +37,7 @@ export function PopularCategories({ title }: CatalogTitle) {
    if (!categories || categories.length === 0) return null;
 
    return (
-      <div className="mb-18.75 w-full">
+      <div className="mb-18 w-full">
          <div className="max-w-360 mx-auto px-4">
             <h2 className="text-[26px] md:text-[36px] text-red-300 font-bold md:leading-10.75 mb-6">
                {title}
@@ -60,7 +60,7 @@ export function PopularCategories({ title }: CatalogTitle) {
                            alt={category.title}
                            fill
                            loading="eager"
-                           sizes="(max-w-640px) 100vw, (max-w-1024px) 50vw, 33vw"
+                           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                            className="object-cover transition-transform duration-300 group-hover:scale-103"
                         />
 
