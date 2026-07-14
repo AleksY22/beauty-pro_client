@@ -107,8 +107,9 @@ export function PrimarySlider() {
                                  src={slide.image}
                                  alt={slide.title}
                                  fill
-                                 loading="eager"
+                                 // loading="eager"
                                  priority={slide.id === 1} // Первая картинка загружается мгновенно
+                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
                                  className="object-cover object-center opacity-85 transition-transform duration-700"
                               />
                            </div>

@@ -17,6 +17,8 @@ const nextConfig: NextConfig = {
       //Для доступу к изображениям на локальном сервере
       dangerouslyAllowLocalIP: true,
 
+      formats: ['image/avif', 'image/webp'],
+
       remotePatterns: [
          {
             protocol: 'https',
