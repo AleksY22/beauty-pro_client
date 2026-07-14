@@ -16,7 +16,7 @@ export function PopularCategories({ title }: CatalogTitle) {
    // Состояние загрузки (скелетоны одинакового размера)
    if (isLoading) {
       return (
-         <div className="category mb-18 w-full animate-pulse">
+         <div className="mb-18 w-full animate-pulse">
             <div className="max-w-360 mx-auto px-4">
                <div className="h-10 w-64 bg-neutral-200 rounded-md mb-6" />
                {/* Сетка скелетонов одинакового размера */}
