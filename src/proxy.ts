@@ -30,11 +30,11 @@ export default function proxy(request: NextRequest) {
       return NextResponse.next();
    }
 
-   // 2. ОПРЕДЕЛЯЕМ ПРИВАТНЫЕ ЗОНЫ
+   // ОПРЕДЕЛЯЕМ ПРИВАТНЫЕ ЗОНЫ
    const isDashboardPage = pathname.startsWith('/dashboard');
    const isAdminPage = pathname.startsWith('/admin');
 
-   // 3. Если страница приватная, а сессии у пользователя нет — отправляем авторизоваться
+   // Если страница приватная, а сессии у пользователя нет — отправляем авторизоваться
    if ((isDashboardPage || isAdminPage) && !session) {
       return NextResponse.redirect(new URL(PUBLIC_URL.login(), nextUrl));
    }

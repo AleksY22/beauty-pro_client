@@ -28,7 +28,7 @@ export function Catalog({
       () => EMPTY_CART,
    );
 
-   // 2. Подключаем мутацию React Query для фонового сохранения в БД
+   // Подключаем мутацию React Query для фонового сохранения в БД
    const addToCartMutation = useAddToCart();
 
    const handleAddToCart = (variantId: string) => {

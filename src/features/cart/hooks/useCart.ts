@@ -33,7 +33,7 @@ export const useCartQuery = () => {
             return [];
          }
 
-         // Для гостя — отправляем запрос на наш новый публичный эндпоинт
+         // Для гостя — отправляем запрос на публичный эндпоинт
          const response = await apiClient<ICartItemResponse[]>({
             url: API_URL.cart('local-details'),
             method: 'POST',

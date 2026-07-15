@@ -44,7 +44,7 @@ export function PopularCategories({ title }: CatalogTitle) {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                {categories.map((category: ICategory) => {
-                  // Разделяем имя по " / " или " и ", если нужно переносить строки, как в старом дизайне
+                  // Разделяем имя по " / " или " и ", если нужно переносить строки
                   const titleLines = category.title
                      ? category.title.split('/')
                      : ['Без названия'];

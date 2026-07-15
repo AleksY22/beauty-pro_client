@@ -28,15 +28,15 @@ export const useMergeCartMutation = () => {
          return (response as any).data || response;
       },
       onSuccess: (serverCart: ICartItemResponse[]) => {
-         // 1. Обновляем кэш React Query полученными данными от бэкенда
+         // Обновляем кэш React Query полученными данными от бэкенда
          queryClient.setQueryData(CART_QUERY_KEY, serverCart);
 
-         // 2. Инвалидируем кэш, чтобы гарантировать актуальность данных (цены, остатки на складе)
+         // Инвалидируем кэш, чтобы гарантировать актуальность данных (цены, остатки на складе)
          queryClient.invalidateQueries({ queryKey: CART_QUERY_KEY });
 
          setAuth(true);
 
-         // 4. Перезаписываем Zustand, чтобы локальный стейт полностью соответствовал БД
+         // Перезаписываем Zustand, чтобы локальный стейт полностью соответствовал БД
          setItems(
             serverCart.map((i) => ({
                productId: i.variant.productId,

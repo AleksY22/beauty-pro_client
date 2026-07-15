@@ -35,13 +35,13 @@ export function Explorer({ products: initialData }: ExplorerProps) {
       initialData: !searchTerm && currentPage === 1 ? initialData : undefined,
    });
 
-   // 3. Функция переключения страниц, которая обновляет URL
+   // Функция переключения страниц, которая обновляет URL
    const handlePageChange = useCallback(
       (newPage: number) => {
          const params = new URLSearchParams(searchParams.toString());
          params.set('page', newPage.toString());
 
-         // Мягко пушим новый URL без перезагрузки страницы
+         // пушим новый URL без перезагрузки страницы
          router.push(`${pathname}?${params.toString()}`);
       },
       [searchParams, pathname, router],

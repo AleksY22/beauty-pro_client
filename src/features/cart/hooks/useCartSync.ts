@@ -30,7 +30,7 @@ export function useCartSync() {
       } else {
          // Пользователь вышел из системы или сессии нет
          setAuth(false);
-         clearCart(); // Очищаем стейт для безопасности
+         clearCart(); // Очищаем стейт
       }
    }, [user, isLoading, setAuth, clearCart, mergeCart, localItems]);
 }

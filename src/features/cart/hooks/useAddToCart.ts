@@ -34,7 +34,6 @@ export const useAddToCart = () => {
          });
       },
       // Оптимистичный апдейт UI для авторизованного пользователя
-
       onSettled: (data) => {
          if (data && !('isGuest' in data)) {
             queryClient.invalidateQueries({

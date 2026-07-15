@@ -8,7 +8,7 @@ import { useMergeCartMutation } from './useMergeCartMutation';
 export const useAuthActions = () => {
    const queryClient = useQueryClient();
 
-   // 1. Подключаем ранее созданную мутацию React Query для слияния корзины
+   // 1. Подключаем мутацию React Query для слияния корзины
    const { mutate: mergeCart, isPending: isMerging } = useMergeCartMutation();
 
    // 2. Достаем текущие гостевые товары из Zustand
