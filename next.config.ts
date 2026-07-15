@@ -13,6 +13,10 @@ const nextConfig: NextConfig = {
       GOOGLE_RECAPTCHA_SITE_KEY: process.env.GOOGLE_RECAPTCHA_SITE_KEY,
    },
 
+   experimental: {
+      inlineCss: true, // Заставляет Next.js 16 встраивать CSS-чанки прямо в HTML
+   },
+
    images: {
       //Для доступу к изображениям на локальном сервере
       dangerouslyAllowLocalIP: true,

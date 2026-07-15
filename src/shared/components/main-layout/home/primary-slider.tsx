@@ -100,7 +100,7 @@ export function PrimarySlider() {
                            key={slide.id}
                            className="min-w-full relative shrink-0"
                         >
-                           <div className="relative aspect-21/9 md:aspect-3/1 w-full bg-neutral-900 overflow-hidden flex items-center justify-center content-visibility-auto">
+                           <div className="relative aspect-21/9 md:aspect-3/1 w-full bg-neutral-900 overflow-hidden flex items-center justify-center">
                               {/* Фоновое изображение слайда */}
                               <div className="absolute inset-0 w-full h-full z-0">
                                  <Image
