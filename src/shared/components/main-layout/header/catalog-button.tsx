@@ -24,6 +24,7 @@ export function CatalogButton() {
       <Button
          onClick={handleNavigate}
          disabled={isPending}
+         aria-label="каталог"
          className="flex gap-2 bg-red-300 hover:bg-red-300/70 text-amber-50 font-bold text-lg tracking-widest px-3 py-2 rounded-[5px] h-auto disabled:pointer-events-none disabled:opacity-70 transition-all"
       >
          {isPending ? (

@@ -214,6 +214,7 @@ export function SearchInput({ className }: Props) {
                className="rounded-l-none h-10 border-2 border-l-0 border-red-300 bg-red-400 hover:bg-red-500"
                onClick={handleSearchSubmit}
                disabled={isLoading}
+               aria-label="поиск"
             >
                {isLoading ? (
                   <Loader2 className="size-4 animate-spin" />

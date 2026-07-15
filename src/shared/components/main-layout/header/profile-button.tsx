@@ -59,8 +59,11 @@ export function ProfileButton() {
                </DropdownMenuContent>
             </DropdownMenu>
          ) : (
-            <Link href={PUBLIC_URL.login()}>
-               <Button className="rounded-full h-8 w-8">
+            <Link href={PUBLIC_URL.login()} aria-label="Войти в личный кабинет">
+               <Button
+                  className="rounded-full h-8 w-8"
+                  aria-label="Войти в личный кабинет"
+               >
                   <LogIn className="size-4" />
                </Button>
             </Link>

@@ -26,7 +26,11 @@ export function Header() {
                </Suspense>
             </div>
             <div className="flex gap-x-3 md:gap-x-5 items-center justify-end">
-               <Link href={PUBLIC_URL.cart()} className="relative">
+               <Link
+                  href={PUBLIC_URL.cart()}
+                  className="relative"
+                  aria-label="Перейти в корзину"
+               >
                   <ShoppingCart className="w-8 h-8 text-red-300 hover:text-red-300/80" />
                   <CartNum />
                </Link>
