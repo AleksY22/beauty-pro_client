@@ -11,6 +11,7 @@ export const PUBLIC_URL = {
    auth: () => PUBLIC_URL.root('/auth'),
    register: () => PUBLIC_URL.root('/auth/register'),
    login: () => PUBLIC_URL.root('/auth/login'),
+   success: () => PUBLIC_URL.root('/auth/success'),
    resetPassword: () => PUBLIC_URL.root('/auth/reset-password'),
 
    product: (id = '') => PUBLIC_URL.root(`/product/${id}`),
